@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FIRMA — Exklusive Lösungen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --white: #ffffff;
+      --off-white: #f8f8f6;
+      --light-gray: #efefec;
+      --mid-gray: #c8c8c2;
+      --dark-gray: #4a4a45;
+      --ink: #1a1a18;
+      --accent: #b8975a;
+      --accent-light: #e8d8b4;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ─── PAGES ─── */
+    .page {
+      display: none;
+      min-height: 100vh;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    .page.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 60px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex; gap: 40px; list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--dark-gray);
+      text-decoration: none;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+
+    .nav-links a:hover, .nav-links a.active-link { color: var(--accent); }
+
+    /* ─── HOME PAGE ─── */
+    .hero {
+      padding-top: 140px;
+      padding-bottom: 80px;
+      padding-left: 60px;
+      padding-right: 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+
+    .hero-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 6vw, 88px);
+      font-weight: 300;
+      line-height: 1.08;
+      color: var(--ink);
+      max-width: 700px;
+      margin-bottom: 32px;
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-divider {
+      width: 60px; height: 1px;
+      background: var(--accent);
+      margin-bottom: 28px;
+    }
+
+    .hero-body {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--dark-gray);
+      max-width: 540px;
+      margin-bottom: 20px;
+    }
+
+    .hero-note {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--mid-gray);
+      max-width: 480px;
+      margin-bottom: 60px;
+      border-left: 2px solid var(--accent-light);
+      padding-left: 16px;
+    }
+
+    /* ─── CARDS ─── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      max-width: 1200px;
+      margin: 0 auto 100px;
+      padding: 0 60px;
+    }
+
+    .card {
+      position: relative;
+      background: var(--off-white);
+      padding: 52px 44px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: background 0.35s ease, transform 0.35s ease;
+      border: 1px solid var(--light-gray);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      height: 3px; width: 0;
+      background: var(--accent);
+      transition: width 0.4s ease;
+    }
+
+    .card:hover { background: var(--white); transform: translateY(-4px); }
+    .card:hover::before { width: 100%; }
+
+    .card-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 56px;
+      font-weight: 300;
+      color: var(--accent-light);
+      line-height: 1;
+      margin-bottom: 28px;
+      display: block;
+    }
+
+    .card-icon {
+      width: 40px; height: 40px;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      color: var(--ink);
+    }
+
+    .card-desc {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--dark-gray);
+      margin-bottom: 32px;
+    }
+
+    .card-cta {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .card-cta::after {
+      content: '→';
+      transition: transform 0.2s;
+    }
+
+    .card:hover .card-cta::after { transform: translateX(5px); }
+
+    /* ─── INNER PAGES ─── */
+    .inner-page {
+      padding-top: 120px;
+      min-height: 100vh;
+      background: var(--white);
+    }
+
+    .inner-header {
+      padding: 60px 60px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    .back-btn {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+      cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-bottom: 32px;
+      transition: color 0.2s;
+      background: none; border: none;
+    }
+
+    .back-btn::before { content: '←'; }
+    .back-btn:hover { color: var(--accent); }
+
+    .inner-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 60px);
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    .inner-subtitle {
+      font-size: 15px;
+      color: var(--dark-gray);
+      line-height: 1.7;
+      max-width: 540px;
+    }
+
+    .inner-body {
+      padding: 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ─── CONTACT PAGE ─── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .contact-card {
+      background: var(--off-white);
+      border: 1px solid var(--light-gray);
+      padding: 40px 36px;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.06);
+    }
+
+    .contact-avatar {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .contact-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .contact-role {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .contact-info-row {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px;
+      color: var(--dark-gray);
+      margin-bottom: 8px;
+    }
+
+    .contact-info-row svg {
+      flex-shrink: 0;
+      color: var(--mid-gray);
+    }
+
+    /* ─── PRODUCTS PAGE ─── */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 2px;
+    }
+
+    .product-card {
+      background: var(--off-white);
+      border: 1px solid var(--light-gray);
+      padding: 0;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    }
+
+    .product-img {
+      height: 180px;
+      background: linear-gradient(135deg, var(--accent-light) 0%, var(--light-gray) 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .product-img svg {
+      color: var(--accent);
+      opacity: 0.6;
+    }
+
+    .product-info { padding: 28px 28px 32px; }
+
+    .product-category {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .product-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    .product-desc {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--dark-gray);
+      margin-bottom: 20px;
+    }
+
+    .product-badge {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--accent-light);
+      color: var(--accent);
+      padding: 5px 12px;
+      border-radius: 2px;
+    }
+
+    /* ─── DIRECTIONS PAGE ─── */
+    .directions-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .map-placeholder {
+      background: var(--off-white);
+      border: 1px solid var(--light-gray);
+      height: 380px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      color: var(--mid-gray);
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .map-placeholder::after {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 20px,
+        rgba(200,200,194,0.12) 20px,
+        rgba(200,200,194,0.12) 21px
+      );
+    }
+
+    .map-note {
+      font-size: 13px;
+      color: var(--mid-gray);
+      text-align: center;
+      padding: 0 24px;
+      position: relative; z-index: 1;
+    }
+
+    .map-icon { color: var(--accent); position: relative; z-index: 1; }
+
+    .directions-info { display: flex; flex-direction: column; gap: 24px; }
+
+    .dir-block {
+      background: var(--off-white);
+      border: 1px solid var(--light-gray);
+      padding: 28px 32px;
+    }
+
+    .dir-block-title {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .dir-block-title svg { flex-shrink: 0; }
+
+    .dir-text {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--dark-gray);
+    }
+
+    .dir-address {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      color: var(--ink);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .hours-row {
+      display: flex; justify-content: space-between;
+      font-size: 14px;
+      color: var(--dark-gray);
+      padding: 7px 0;
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row span:first-child { color: var(--ink); font-weight: 500; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--ink);
+      color: var(--mid-gray);
+      padding: 48px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    footer .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      color: var(--white);
+      letter-spacing: 0.06em;
+    }
+
+    .footer-copy { color: var(--dark-gray); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 20px 28px; }
+      .nav-links { gap: 24px; }
+      .hero, .inner-header, .inner-body { padding-left: 28px; padding-right: 28px; }
+      .cards-grid { grid-template-columns: 1fr; padding: 0 28px; }
+      .directions-layout { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 16px; text-align: center; padding: 36px 28px; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" onclick="showPage('home')">FIRMA</a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nav-home" class="active-link">Übersicht</a></li>
+    <li><a onclick="showPage('contact')" id="nav-contact">Kontakt</a></li>
+    <li><a onclick="showPage('products')" id="nav-products">Produkte</a></li>
+    <li><a onclick="showPage('directions')" id="nav-directions">Anfahrt</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════ HOME PAGE ══════════════════ -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <p class="hero-tag">Willkommen bei Firma GmbH</p>
+    <h1 class="hero-headline">Qualität, die man <em>erleben</em> muss.</h1>
+    <div class="hero-divider"></div>
+    <p class="hero-body">
+      Wir sind ein spezialisiertes Unternehmen, das exklusive Produkte und maßgeschneiderte Lösungen für anspruchsvolle Kunden anbietet. Unser Fokus liegt auf höchster Qualität, persönlicher Beratung und langfristigen Partnerschaften.
+    </p>
+    <p class="hero-note">
+      Unsere Produkte sind ausschließlich über persönliche Beratung erhältlich. Um ein Angebot zu erhalten oder ein Produkt zu erwerben, kontaktieren Sie bitte direkt einen unserer Verkäufer.
+    </p>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card" onclick="showPage('contact')">
+      <span class="card-number">01</span>
+      <div class="card-title">Kontakt &amp; Beratung</div>
+      <p class="card-desc">Sprechen Sie direkt mit unseren erfahrenen Verkäufern. Persönliche Beratung ist der Schlüssel zu Ihrer optimalen Lösung.</p>
+      <div class="card-cta">Zum Team</div>
+    </div>
+    <div class="card" onclick="showPage('products')">
+      <span class="card-number">02</span>
+      <div class="card-title">Produktübersicht</div>
+      <p class="card-desc">Entdecken Sie unser exklusives Sortiment. Alle Produkte sind auf Anfrage über unsere Verkäufer erhältlich.</p>
+      <div class="card-cta">Produkte ansehen</div>
+    </div>
+    <div class="card" onclick="showPage('directions')">
+      <span class="card-number">03</span>
+      <div class="card-title">Anfahrt &amp; Standort</div>
+      <p class="card-desc">Besuchen Sie uns vor Ort. Wir freuen uns auf Ihren Besuch in unserem Unternehmensgebäude.</p>
+      <div class="card-cta">Zum Standort</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ CONTACT PAGE ══════════════════ -->
+<div id="page-contact" class="page inner-page">
+  <div class="inner-header">
+    <button class="back-btn" onclick="showPage('home')">Zurück zur Übersicht</button>
+    <h2 class="inner-title">Unser Vertriebsteam</h2>
+    <p class="inner-subtitle">Kontaktieren Sie einen unserer Experten direkt, um ein unverbindliches Beratungsgespräch zu vereinbaren oder ein Produkt zu erwerben.</p>
+  </div>
+  <div class="inner-body">
+    <div class="contact-grid">
+
+      <div class="contact-card">
+        <div class="contact-avatar">MK</div>
+        <div class="contact-name">Markus Keller</div>
+        <div class="contact-role">Senior Verkaufsberater</div>
+        <div class="contact-info-row">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          +49 (0)221 123 456-10
+        </div>
+        <div class="contact-info-row">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          m.keller@firma.de
+        </div>
+        <div class="contact-info-row">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Mo–Fr, 08:00–17:00 Uhr
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-avatar">SL</div>
+        <div class="contact-name">Sarah Lang</div>
+        <div class="contact-role">Verkaufsberaterin</div>
+        <div class="contact-info-row">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          +49 (0)221 123 456-11
+        </div>
+        <div class="contact-info-row">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          s.lang@firma.de
+        </div>
+        <div class="contact-info-row">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Mo–Fr, 09:00–18:00 Uhr
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-avatar">TW</div>
+        <div class="contact-name">Thomas Weber</div>
+        <div class="contact-role">Key Account Manager</div>
+        <div class="contact-info-row">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          +49 (0)221 123 456-20
+        </div>
+        <div class="contact-info-row">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          t.weber@firma.de
+        </div>
+        <div class="contact-info-row">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Mo–Do, 08:00–16:00 Uhr
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-avatar">AN</div>
+        <div class="contact-name">Anna Neumann</div>
+        <div class="contact-role">Vertriebsassistenz</div>
+        <div class="contact-info-row">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          +49 (0)221 123 456-00
+        </div>
+        <div class="contact-info-row">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          info@firma.de
+        </div>
+        <div class="contact-info-row">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Mo–Fr, 08:00–17:00 Uhr
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-logo">FIRMA</span>
+    <span class="footer-copy">© 2025 Firma GmbH · Alle Rechte vorbehalten</span>
+  </footer>
+</div>
+
+<!-- ══════════════════ PRODUCTS PAGE ══════════════════ -->
+<div id="page-products" class="page inner-page">
+  <div class="inner-header">
+    <button class="back-btn" onclick="showPage('home')">Zurück zur Übersicht</button>
+    <h2 class="inner-title">Produktübersicht</h2>
+    <p class="inner-subtitle">Alle aufgeführten Produkte sind ausschließlich über direkte Kontaktaufnahme mit unseren Verkäufern erhältlich. Preise auf Anfrage.</p>
+  </div>
+  <div class="inner-body">
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-img">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Software</div>
+          <div class="product-name">Pro Suite Enterprise</div>
+          <p class="product-desc">Vollständige Unternehmenslösung mit modularem Aufbau und individueller Anpassung an Ihre Geschäftsprozesse.</p>
+          <span class="product-badge">Nur auf Anfrage</span>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Hardware</div>
+          <div class="product-name">Precision Terminal X1</div>
+          <p class="product-desc">Hochleistungsgerät für industrielle Anforderungen. Robust, zuverlässig und speziell für den Dauerbetrieb konzipiert.</p>
+          <span class="product-badge">Nur auf Anfrage</span>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Dienstleistung</div>
+          <div class="product-name">Consulting Paket Premium</div>
+          <p class="product-desc">Umfassendes Beratungspaket inkl. Analyse, Strategie und Umsetzungsbegleitung durch unser Expertenteam.</p>
+          <span class="product-badge">Nur auf Anfrage</span>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Analyse</div>
+          <div class="product-name">DataAnalytics 360°</div>
+          <p class="product-desc">Echtzeit-Datenauswertung und Reporting-Plattform für fundierte Geschäftsentscheidungen.</p>
+          <span class="product-badge">Nur auf Anfrage</span>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Sicherheit</div>
+          <div class="product-name">SecureGuard Pro</div>
+          <p class="product-desc">Umfassende Sicherheitslösung zum Schutz sensibler Unternehmensdaten und Infrastrukturen.</p>
+          <span class="product-badge">Nur auf Anfrage</span>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Support</div>
+          <div class="product-name">24/7 Supportvertrag</div>
+          <p class="product-desc">Rundum-sorglos-Paket mit garantierten Reaktionszeiten und dediziertem Ansprechpartner.</p>
+          <span class="product-badge">Nur auf Anfrage</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-logo">FIRMA</span>
+    <span class="footer-copy">© 2025 Firma GmbH · Alle Rechte vorbehalten</span>
+  </footer>
+</div>
+
+<!-- ══════════════════ DIRECTIONS PAGE ══════════════════ -->
+<div id="page-directions" class="page inner-page">
+  <div class="inner-header">
+    <button class="back-btn" onclick="showPage('home')">Zurück zur Übersicht</button>
+    <h2 class="inner-title">Anfahrt &amp; Standort</h2>
+    <p class="inner-subtitle">Wir freuen uns auf Ihren Besuch. Hier finden Sie alle wichtigen Informationen zur Anreise und zu unseren Öffnungszeiten.</p>
+  </div>
+  <div class="inner-body">
+    <div class="directions-layout">
+
+      <div class="map-placeholder">
+        <svg class="map-icon" width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+        <p class="map-note">Musterstraße 12, 50667 Köln<br/>Bitte fügen Sie hier Ihre Google Maps Einbettung ein.</p>
+      </div>
+
+      <div class="directions-info">
+
+        <div class="dir-block">
+          <div class="dir-block-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Adresse
+          </div>
+          <div class="dir-address">Firma GmbH<br/>Musterstraße 12<br/>50667 Köln</div>
+        </div>
+
+        <div class="dir-block">
+          <div class="dir-block-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            Öffnungszeiten
+          </div>
+          <div class="hours-row"><span>Montag – Freitag</span><span>08:00 – 18:00 Uhr</span></div>
+          <div class="hours-row"><span>Samstag</span><span>09:00 – 14:00 Uhr</span></div>
+          <div class="hours-row"><span>Sonntag</span><span>Geschlossen</span></div>
+        </div>
+
+        <div class="dir-block">
+          <div class="dir-block-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+            Anreise
+          </div>
+          <p class="dir-text">
+            <strong>Mit dem Auto:</strong><br/>
+            Autobahn A3/A4, Ausfahrt Köln-Zentrum. Parkhaus direkt am Gebäude verfügbar.<br/><br/>
+            <strong>Mit dem ÖPNV:</strong><br/>
+            U-Bahn Linie U1/U7, Haltestelle „Dom/Hbf" (5 Minuten Fußweg). Hauptbahnhof Köln (8 Minuten Fußweg).
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-logo">FIRMA</span>
+    <span class="footer-copy">© 2025 Firma GmbH · Alle Rechte vorbehalten</span>
+  </footer>
+</div>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active-link'));
+    const navEl = document.getElementById('nav-' + id);
+    if (navEl) navEl.classList.add('active-link');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
