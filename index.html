@@ -28,7 +28,6 @@
       overflow-x: hidden;
     }
 
-    /* ─── PAGES ─── */
     .page {
       display: none;
       min-height: 100vh;
@@ -41,7 +40,6 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ─── NAV ─── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
@@ -78,7 +76,6 @@
 
     .nav-links a:hover, .nav-links a.active-link { color: var(--accent); }
 
-    /* ─── HOME PAGE ─── */
     .hero {
       padding-top: 140px;
       padding-bottom: 80px;
@@ -135,7 +132,6 @@
       padding-left: 16px;
     }
 
-    /* ─── CARDS ─── */
     .cards-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -177,12 +173,6 @@
       display: block;
     }
 
-    .card-icon {
-      width: 40px; height: 40px;
-      margin-bottom: 20px;
-      color: var(--accent);
-    }
-
     .card-title {
       font-family: 'Cormorant Garamond', serif;
       font-size: 26px;
@@ -213,7 +203,6 @@
 
     .card:hover .card-cta::after { transform: translateX(5px); }
 
-    /* ─── INNER PAGES ─── */
     .inner-page {
       padding-top: 120px;
       min-height: 100vh;
@@ -263,7 +252,6 @@
       margin: 0 auto;
     }
 
-    /* ─── CONTACT PAGE ─── */
     .contact-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -321,7 +309,6 @@
       color: var(--mid-gray);
     }
 
-    /* ─── PRODUCTS PAGE ─── */
     .products-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -388,7 +375,6 @@
       border-radius: 2px;
     }
 
-    /* ─── DIRECTIONS PAGE ─── */
     .directions-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -475,7 +461,6 @@
     .hours-row:last-child { border-bottom: none; }
     .hours-row span:first-child { color: var(--ink); font-weight: 500; }
 
-    /* ─── FOOTER ─── */
     footer {
       background: var(--ink);
       color: var(--mid-gray);
@@ -495,7 +480,6 @@
 
     .footer-copy { color: var(--dark-gray); }
 
-    /* ─── RESPONSIVE ─── */
     @media (max-width: 900px) {
       nav { padding: 20px 28px; }
       .nav-links { gap: 24px; }
@@ -512,7 +496,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a class="nav-logo" onclick="showPage('home')">FIRMA</a>
   <ul class="nav-links">
@@ -523,7 +506,7 @@
   </ul>
 </nav>
 
-<!-- ══════════════════ HOME PAGE ══════════════════ -->
+<!-- HOME PAGE -->
 <div id="page-home" class="page active">
   <div class="hero">
     <p class="hero-tag">Willkommen bei Firma GmbH</p>
@@ -559,7 +542,7 @@
   </div>
 </div>
 
-<!-- ══════════════════ CONTACT PAGE ══════════════════ -->
+<!-- CONTACT PAGE -->
 <div id="page-contact" class="page inner-page">
   <div class="inner-header">
     <button class="back-btn" onclick="showPage('home')">Zurück zur Übersicht</button>
@@ -569,9 +552,10 @@
   <div class="inner-body">
     <div class="contact-grid">
 
+      <!-- GEÄNDERT: Markus Keller → Carl Bondhe -->
       <div class="contact-card">
-        <div class="contact-avatar">MK</div>
-        <div class="contact-name">Markus Keller</div>
+        <div class="contact-avatar">CB</div>
+        <div class="contact-name">Carl Bondhe</div>
         <div class="contact-role">Senior Verkaufsberater</div>
         <div class="contact-info-row">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
@@ -579,7 +563,7 @@
         </div>
         <div class="contact-info-row">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          m.keller@firma.de
+          c.bondhe@firma.de
         </div>
         <div class="contact-info-row">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -650,7 +634,7 @@
   </footer>
 </div>
 
-<!-- ══════════════════ PRODUCTS PAGE ══════════════════ -->
+<!-- PRODUCTS PAGE -->
 <div id="page-products" class="page inner-page">
   <div class="inner-header">
     <button class="back-btn" onclick="showPage('home')">Zurück zur Übersicht</button>
@@ -741,7 +725,7 @@
   </footer>
 </div>
 
-<!-- ══════════════════ DIRECTIONS PAGE ══════════════════ -->
+<!-- DIRECTIONS PAGE -->
 <div id="page-directions" class="page inner-page">
   <div class="inner-header">
     <button class="back-btn" onclick="showPage('home')">Zurück zur Übersicht</button>
